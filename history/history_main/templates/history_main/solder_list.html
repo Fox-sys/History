@@ -1,0 +1,7 @@
+{% extends 'history_main/base.html' %}
+{% block title %}Главная{% endblock %}
+{% block main %}
+    {% for solder in object_list %}
+        <img src="{{solder.creator.avatar.url}}" height="540px">
+    {% endfor %}
+{% endblock main %}
