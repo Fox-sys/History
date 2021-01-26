@@ -1,0 +1,11 @@
+{% extends 'history_main/base.html' %}
+{% block title %}
+    Добавление поста
+{% endblock title %}
+{% block main %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">отправить</button>
+    </form>
+{% endblock main %}
