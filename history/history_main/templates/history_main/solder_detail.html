@@ -1,1 +1,7 @@
 {% extends 'history_main/base.html' %}
+{% block title %}
+    {{object.last_name}} {{ object.first_name }} {{ object.middle_name }}
+{% endblock title %}
+{% block main %}
+    <img src="{{ object.creator.avatar.url }}">
+{% endblock main %}

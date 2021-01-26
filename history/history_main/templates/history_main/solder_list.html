@@ -2,6 +2,6 @@
 {% block title %}Главная{% endblock %}
 {% block main %}
     {% for solder in object_list %}
-        <img src="{{solder.creator.avatar.url}}" height="540px">
+        <img src="{{solder.creator.avatar.url}}">
     {% endfor %}
 {% endblock main %}

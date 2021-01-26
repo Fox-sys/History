@@ -37,7 +37,7 @@ class SolderPost(models.Model):
         return f"{self.id} - {self.last_name} {self.first_name} {self.is_alive}"
 
     def get_absolute_url(self):
-        pass
+        return f'/solders/{self.id}'
 
 
     class Meta:
