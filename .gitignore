@@ -1,0 +1,5 @@
+*.pyc
+/venv
+.vscode
+history/media
+Makefile
