@@ -1,8 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.shortcuts import reverse
+# from django.shortcuts import reverse
 
 class MainUser(AbstractUser):
+    """
+    Main user model in project.
+    Used for authentification.
+    """
     phone = models.CharField(max_length=12, blank=True)
     avatar = models.ImageField(upload_to="user_avatars/", default="user_avatars/default.png")
     uploads = models.ManyToManyField("SolderPost", blank=True)
@@ -23,6 +27,9 @@ class MainUser(AbstractUser):
 
 
 class SolderPost(models.Model):
+    """
+    Model for representation post with Solders
+    """
     creator = models.ForeignKey(MainUser, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=150)
     middle_name = models.CharField(max_length=150)
@@ -47,6 +54,9 @@ class SolderPost(models.Model):
 
 
 class Exhibit(models.Model):
+    """
+    Model for representation museum exhibits
+    """
     name = models.CharField(max_length=150)
     desc = models.TextField()
     image = models.ImageField(upload_to="museum_photos")

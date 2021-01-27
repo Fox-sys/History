@@ -6,18 +6,31 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 
 class SolderList(ListView):
+    """
+    View for serving list of solders
+    """
     model = SolderPost
     template_name = "history_main/solder_list.html"
 
 class SolderDetail(DetailView):
+    """
+    View for current solder
+    """
     model = SolderPost
     template_name = "history_main/solder_detail.html"
 
 class CreateUpdateSolder(View):
+    """
+    View for creating and updating solders
+    """
     form_class = SolderForm
     model = SolderPost
     template_name = "history_main/solder_create.html"
     def get(self, request, **kwargs):
+        """
+        Get method for CreateUpdateSolder view.
+        Takes one keyword arg for update method (pk)
+        """
         form = self.form_class()
         print(kwargs)
         if "pk" in kwargs:
@@ -26,6 +39,10 @@ class CreateUpdateSolder(View):
         return render(request, self.template_name, context={"form": form})
 
     def post(self, request, **kwargs):
+        """
+        Post method for CreateUpdateSolder view.
+        Takes one keyword arg for update method (pk).
+        """
         instance = get_object_or_404(self.model, pk=kwargs['pk']) if "pk" in kwargs else None
         form = self.form_class(request.POST, request.FILES, instance=instance)
         form.instance.creator = MainUser.objects.get(id=1)
@@ -36,6 +53,10 @@ class CreateUpdateSolder(View):
 
    
 def delete_solder(request, pk):
+    """
+    Delete method for solders.
+    Takes one positional arg (pk).
+    """
     post = get_object_or_404(SolderPost, pk=pk)
     if request.user.is_authenticated:
         if post.creator == request.user or request.user.is_staff or request.user.is_moderator or request.user.is_admin:
@@ -44,16 +65,25 @@ def delete_solder(request, pk):
 
 
 class Register(View):
+    """
+    View for user registration 
+    """
     form_class = SignUpForm
     model = MainUser
     template_name = "registration/register.html"
     def get(self, request):
+        """
+        Get method for Register view
+        """
         if request.user.is_authenticated:
             return redirect("/")
         form = self.form_class()
         return render(request, self.template_name, context={"form":form})
 
     def post(self, request):
+        """
+        Post method for Register view
+        """
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save() 
@@ -63,4 +93,5 @@ class Register(View):
         return render(request, self.template_name, context={"form":form})
 
 class HLogoutView(LogoutView):
+    """Logout view for users"""
     template_name = "registration/logout.html"
