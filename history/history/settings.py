@@ -141,3 +141,4 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 
 AUTH_USER_MODEL = 'history_main.MainUser'
+LOGIN_REDIRECT_URL = "/"

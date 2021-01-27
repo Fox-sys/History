@@ -1,5 +1,6 @@
 from django import forms
 from .models import SolderPost, MainUser
+from django.contrib.auth.forms import UserCreationForm
 
 # class SolderForm(forms.Form):
 #     first_name = forms.CharField(max_length=150)
@@ -20,3 +21,8 @@ class SolderForm(forms.ModelForm):
     def test(self):
         return self.cleaned_data["death_date"]
 # , "birth_date", "death_date"
+
+class SignUpForm(UserCreationForm):
+    class Meta:
+        model = MainUser
+        fields = ('username', 'password1', 'password2')

@@ -1,0 +1,12 @@
+{% extends 'history_main/base.html' %}
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+{% block main %}
+    <form method="post", action={% url 'register' %}>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Регаться</button>
+    </form>
+{% endblock main %}
