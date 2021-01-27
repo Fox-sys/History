@@ -95,3 +95,19 @@ class Register(View):
 class HLogoutView(LogoutView):
     """Logout view for users"""
     template_name = "registration/logout.html"
+
+
+class ExhibitList(ListView):
+    """
+    View for serving list of exibits
+    """
+    model = Exhibit
+    template_name = "history_main/exhibit_list.html"
+
+
+class ExhibitDetail(DetailView):
+    """
+    View for current exhibit
+    """
+    model = Exhibit
+    template_name = "history_main/exhibit_detail.html"

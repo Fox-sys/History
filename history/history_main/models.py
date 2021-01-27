@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from django.shortcuts import reverse
 
 class MainUser(AbstractUser):
     """
@@ -65,7 +64,7 @@ class Exhibit(models.Model):
         return f"{self.id} - {self.name}"
 
     def get_absolute_url(self):
-        pass
+        return f'/exhibits/{self.id}'
 
 
     class Meta:
