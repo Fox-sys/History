@@ -6,14 +6,14 @@
             <img src="{{ solder.photo.url }}" alt="" width="300">
             <p>{{ solder.last_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
             <span>Автор: 
-                <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.username }}</a>
+                <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
             </span>
             <div class="solder_desc">
                 {{ solder.desc|slice:"100" }}{% if solder.desc|length > 100 %}...{% endif %}
                 Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
-                Дата рождения: {{ solder.birth_date.day }}.{{ solder.birth_date.month }}.{{ solder.birth_date.year }} <br>
+                Дата рождения: {{ solder.birth_date.day }} {% if solder.birth_date.month|length < 2 %}0{% endif %}{{ solder.birth_date.month }} {{ solder.birth_date.year }} <br>
                 {% if not solder.is_alive %}
-                    Дата смерти: {{ solder.death_date.day }}.{{ solder.death_date.month }}.{{ solder.death_date.year }} <br>
+                    Дата смерти: {{ solder.death_date.day }} {% if solder.death_date.month|length < 2 %}0{% endif %}{{ solder.death_date.month }} {{ solder.death_date.year }} <br>
                 {% endif %}
             </div>
             <a href="{% url 'solder_detail' pk=solder.id %}">Подробнее</a>

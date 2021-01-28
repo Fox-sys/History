@@ -15,6 +15,7 @@
                 <li><a href="http://sch45.com.ru" class="href">Вернуться на сайт школы</a></li>
                 <li><a href="{% url 'index' %}" class="href">Главная</a></li>
                 <li><a href="{% url 'exhibit_list' %}" class="href">Музей</a></li>
+                <li><a href="{% url 'profile_list' %}" class="href">Профили</a></li>
                 <li><a href="{% url 'create_solder' %}" class="href">Добавить ветерана</a></li>
                 {% if user.is_staff %}
                     <li><a href="/admin" class="href">Админ-панель</a></li>

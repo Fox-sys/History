@@ -4,17 +4,17 @@
 {% endblock title %}
 {% block main %}
     <div class="solder_detail">
-        <img src="{{ solder.photo.url }}" alt="" width="300">
+        <img src="{{ object.photo.url }}" alt="" width="300">
         <p>{{ object.last_name }} {{ object.middle_name }} {{object.last_name}}</p>
         <span>Автор: 
-            <a href="{% url 'profile_detail' pk=object.creator.id %}">{{ object.creator.username }}</a>
+            <a href="{% url 'profile_detail' pk=object.creator.id %}">{{ object.creator.last_name }} {{ object.creator.first_name }}</a>
         </span>
         <div class="desc">
             {{ object.desc }}
             Статус: {% if object.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
-            Дата рождения: {{ object.birth_date.day }}.{{ object.birth_date.month }}.{{ object.birth_date.year }} <br>
+            Дата рождения: {{ object.birth_date.day }} {% if object.birth_date.month|length < 2 %}0{% endif %}{{ object.birth_date.month }} {{ object.birth_date.year }} <br>
             {% if not object.is_alive %}
-                Дата смерти: {{ object.death_date.day }}.{{ object.death_date.month }}.{{ object.death_date.year }} <br>
+                Дата смерти: {{ object.death_date.day }} {% if object.death_date.month|length < 2 %}0{% endif %}{{ object.death_date.month }} {{ object.death_date.year }} <br>
             {% endif %}
             </div>
             {% if user == object.creator or user.is_staff %}

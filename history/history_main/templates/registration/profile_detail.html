@@ -1,4 +1,27 @@
 {% extends 'history_main/base.html' %}
-{% block title %}
-    {{ user.first_name }} {{ user.last_name }}
-{% endblock title %}
+{% block title %}{{ profile.last_name }} {{ profile.first_name }}{% endblock %}
+{% block main %}
+    <div class="single_profile">
+        <img src="{{ object.avatar.url }}" alt="" width="300">
+        <p>{{ object.last_name }}{% if object.middle_name %} {{ object.middle_name }}{% endif %} {{ object.first_name }}</p>
+        <div class="desc">
+            Последний раз был в сети {{ object.last_login.day }} {% if object.last_login.month|length < 2 %}0{% endif %}{{ object.last_login.month }} {{ object.last_login.year }}: {{ object.last_login.time }}<br>
+            Статус: {% if object.is_admin %}Администратор{% elif object.is_moderator %}Модератор{% else %}Пользователь{% endif %} <br>
+            Количество публекаций: {{ object.uploads_amount }} <br>
+            {% if not object.email_is_hidden or user.is_staff and not object.email == "" %}
+                Email: {{ object.email }} <br>
+            {% endif %}
+            {% if not object.phone_is_hidden or user.is_staff and not object.phone == "" %}
+                Phone: {{ object.phone }} <br>
+            {% endif %}
+        </div>
+        <div class="posts">
+            {% for post in object.uploads.all %}
+                <div class="single_post">
+                    <img src="{{ post.photo.url }}" alt="" width="150"><br>
+                    <a href="{% url 'solder_detail' pk=post.id %}">{{ post.last_name }} {{ post.first_name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

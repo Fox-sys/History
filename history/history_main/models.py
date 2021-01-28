@@ -6,7 +6,10 @@ class MainUser(AbstractUser):
     Main user model in project.
     Used for authentification.
     """
+    middle_name = models.CharField(max_length=150, blank=True)
+    email_is_hidden = models.BooleanField(default=True)
     phone = models.CharField(max_length=12, blank=True)
+    phone_is_hidden = models.BooleanField(default=True)
     avatar = models.ImageField(upload_to="user_avatars/", default="user_avatars/default.png")
     uploads = models.ManyToManyField("SolderPost", blank=True)
     uploads_amount = models.PositiveIntegerField(default=0)

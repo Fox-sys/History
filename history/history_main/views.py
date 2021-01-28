@@ -49,7 +49,11 @@ class CreateUpdateSolder(View):
             form = self.form_class(request.POST, request.FILES, instance=instance)
             form.instance.creator = MainUser.objects.get(id=request.user.id)
             if form.is_valid():
-                form.save()
+                obj = form.save()
+                if instance is None:
+                    request.user.uploads.add(obj)
+                    request.user.uploads_amount += 1
+                    request.user.save()
                 return redirect('/')
             return render(request, self.template_name, context={"form": self.form_class(request.POST)})
         return redirect('/')
@@ -73,7 +77,11 @@ class ConfirmDeleteSolder(View):
         post = get_object_or_404(SolderPost, pk=pk)
         if request.user.is_authenticated:
             if post.creator == request.user or request.user.is_staff:
+                if post.creator == request.user:
+                    request.user.uploads.remove(post)
+                    request.user.uploads_amount -= 1
                 post.delete()
+                request.user.save()
         return redirect('/')
 
     
