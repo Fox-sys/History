@@ -4,15 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <header>
-    
+        <div class="header">
+            <a href="{% url 'index' %}"><img src="{% static 'logo.png' %}" alt="" width="70px"></a>
+            <ul class="links">
+                <li><a href="http://sch45.com.ru" class="href">Вернуться на сайт школы</a></li>
+                <li><a href="{% url 'index' %}" class="href">Главная</a></li>
+                <li><a href="{% url 'exhibit_list' %}" class="href">Музей</a></li>
+                <li><a href="{% url 'create_solder' %}" class="href">Добавить ветерана</a></li>
+                {% if user.is_staff %}
+                    <li><a href="/admin" class="href">Админ-панель</a></li>
+                {% endif %}
+            </ul>
+            <div class="auth">
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}">Авторизация</a>
+                    <a href="{% url 'register' %}">Регистрация</a>
+                {% else %}
+                    <a href="{% url 'logout' %}">Выход</a>
+                {% endif %}
+            </div>
+        </div>
     </header>
     <main>
-        {% block main %}{% endblock %}
+        <div class="content">
+            {% block main %}{% endblock %}
+        </div>
     </main>
-    {% if user.is_moderator or user.is_admin or user.is_staff %}<a href="/admin/">ADMIN</a>{% endif %}
+    <br><br><br><br><br>
 </body>
 </html>

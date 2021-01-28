@@ -5,7 +5,14 @@
 {% block main %}
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        Имя: {{ form.first_name }}<br>
+        Отчество: {{ form.middle_name }}<br>
+        Фамилия: {{ form.last_name }}<br>
+        Описание: {{ form.desc }}<br>
+        Статус: {{ form.is_alive }}<br>
+        Фото: {{ form.photo }}<br>
+        Дата рождения: <input type="date" name="birth_date" id=""><br>
+        Дата смерти: <input type="date" name="death_date" id=""><br>
         <button type="submit">отправить</button>
     </form>
 {% endblock main %}

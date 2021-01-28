@@ -17,7 +17,7 @@ class MainUser(AbstractUser):
         return f"{self.id} - {self.username} {self.last_name} {self.first_name} {self.uploads_amount}"
 
     def get_absolute_url(self):
-        pass
+        return f'/profiles/{self.id}'
 
 
     class Meta:

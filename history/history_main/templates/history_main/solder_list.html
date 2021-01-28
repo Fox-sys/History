@@ -2,6 +2,21 @@
 {% block title %}Главная{% endblock %}
 {% block main %}
     {% for solder in object_list %}
-        <img src="{{solder.creator.avatar.url}}">
+        <div class="sindle_solder">
+            <img src="{{ solder.photo.url }}" alt="" width="300">
+            <p>{{ solder.last_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
+            <span>Автор: 
+                <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.username }}</a>
+            </span>
+            <div class="solder_desc">
+                {{ solder.desc|slice:"100" }}{% if solder.desc|length > 100 %}...{% endif %}
+                Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
+                Дата рождения: {{ solder.birth_date.day }}.{{ solder.birth_date.month }}.{{ solder.birth_date.year }} <br>
+                {% if not solder.is_alive %}
+                    Дата смерти: {{ solder.death_date.day }}.{{ solder.death_date.month }}.{{ solder.death_date.year }} <br>
+                {% endif %}
+            </div>
+            <a href="{% url 'solder_detail' pk=solder.id %}">Подробнее</a>
+        </div>
     {% endfor %}
 {% endblock main %}

@@ -31,37 +31,52 @@ class CreateUpdateSolder(View):
         Get method for CreateUpdateSolder view.
         Takes one keyword arg for update method (pk)
         """
-        form = self.form_class()
-        print(kwargs)
-        if "pk" in kwargs:
-            obj = get_object_or_404(self.model, pk=kwargs['pk'])
-            form = self.form_class(instance=obj)
-        return render(request, self.template_name, context={"form": form})
+        if request.user.is_authenticated:
+            form = self.form_class()
+            if "pk" in kwargs:
+                obj = get_object_or_404(self.model, pk=kwargs['pk'])
+                form = self.form_class(instance=obj)
+            return render(request, self.template_name, context={"form": form})
+        return redirect('/')
 
     def post(self, request, **kwargs):
         """
         Post method for CreateUpdateSolder view.
         Takes one keyword arg for update method (pk).
         """
-        instance = get_object_or_404(self.model, pk=kwargs['pk']) if "pk" in kwargs else None
-        form = self.form_class(request.POST, request.FILES, instance=instance)
-        form.instance.creator = MainUser.objects.get(id=1)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-        return render(request, self.template_name, context={"form": self.form_class(request.POST)})
-
+        if request.user.is_authenticated:
+            instance = get_object_or_404(self.model, pk=kwargs['pk']) if "pk" in kwargs else None
+            form = self.form_class(request.POST, request.FILES, instance=instance)
+            form.instance.creator = MainUser.objects.get(id=request.user.id)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+            return render(request, self.template_name, context={"form": self.form_class(request.POST)})
+        return redirect('/')
    
-def delete_solder(request, pk):
+class DeleteSolder(View):
     """
-    Delete method for solders.
+    Delete view for solders.
     Takes one positional arg (pk).
     """
-    post = get_object_or_404(SolderPost, pk=pk)
-    if request.user.is_authenticated:
-        if post.creator == request.user or request.user.is_staff or request.user.is_moderator or request.user.is_admin:
-            post.delete()
-    return redirect('/')
+    template_name = "history_main/delete.html"
+    def get(self, request, pk):
+        return render(request, self.template_name, context={"pk":pk})
+
+
+class ConfirmDeleteSolder(View):
+    """
+    Confirm view for removing solder.
+    Takes one positional arg (pk).
+    """
+    def get(self, request, pk):
+        post = get_object_or_404(SolderPost, pk=pk)
+        if request.user.is_authenticated:
+            if post.creator == request.user or request.user.is_staff:
+                post.delete()
+        return redirect('/')
+
+    
 
 
 class Register(View):
@@ -111,3 +126,20 @@ class ExhibitDetail(DetailView):
     """
     model = Exhibit
     template_name = "history_main/exhibit_detail.html"
+
+
+class ProfileDetail(DetailView):
+    """
+    View for current profile
+    """
+    model = MainUser
+    template_name = "registration/profile_detail.html"
+
+
+class ProfileList(ListView):
+    """
+    View for serving list of profiles
+    """
+    model = MainUser
+    template_name = "registration/profile_list.html"
+
