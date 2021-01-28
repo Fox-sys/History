@@ -4,22 +4,21 @@
 {% endblock title %}
 
 {% block main %}
-    {% if form.errors %}
-        <p>hmmm, SOMETHING STRANGE HERE!!</p>
-    {% endif %}
-    {% if next %}
-        <p>Вон отсюдова</p>
-    {% endif %}
     {% if user.is_authenticated %}
         <script>
             document.location.href = "/";
         </script>
     {% endif %}
-    <form method="post" action='{% url "login" %}'>
-        {% csrf_token %}
-        {{ form.username }} <br>
-        {{ form.password }} <br>
-        <input type="submit" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
+    <div class="auth_form">
+        <form method="post" action='{% url "login" %}'>
+            {% csrf_token %}
+            <label for="">Логин: {{ form.username }}</label><br>
+            <label for="">Пароль: {{ form.password }}</label><br>
+            <input type="submit" value="Авторизация">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    </div>
+    {% if form.errors %}
+        <p>Неверное имя пользователя или пароль</p>
+    {% endif %}
 {% endblock main %}

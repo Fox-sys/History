@@ -1,1 +1,14 @@
 {% extends 'history_main/base.html' %}
+{% block title %}Музей{% endblock %}
+{% block main %}
+    {% for exhibit in object_list %}
+        <div class="single_exhibit">
+            <img src="{{ exhibit.image.url }}" alt="" width="300">
+            <p>{{ exhibit.name }}</p>
+            <div class="desc">
+                {{ exhibit.desc|slice:"100" }}{% if exhibit.desc|length > 100 %}...{% endif %}
+            </div>
+            <a href="{% url 'exhibit_detail' pk=exhibit.id %}">Подробнее</a>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -18,5 +18,5 @@ class SignUpForm(UserCreationForm):
     """
     class Meta:
         model = MainUser
-        fields = ('username', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'password1', 'password2')
         extra_fields = "death_date"
