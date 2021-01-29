@@ -2,7 +2,8 @@ from django.urls import path
 from .views import SolderList, SolderDetail, CreateUpdateSolder, \
                    AskDeleteSolder, Register, ConfirmLogoutView, \
                    ExhibitDetail, ExhibitList, ProfileDetail, \
-                   ProfileList, ConfirmDeleteSolder, AskLogoutView
+                   ProfileList, ConfirmDeleteSolder, AskLogoutView, \
+                   EditProfile
 
 urlpatterns = [
     path('', SolderList.as_view(), name="index"),
@@ -18,4 +19,5 @@ urlpatterns = [
     path('exhibits/<int:pk>', ExhibitDetail.as_view(), name="exhibit_detail"),
     path('profiles/<int:pk>', ProfileDetail.as_view(), name="profile_detail"),
     path('profiles/', ProfileList.as_view(), name="profile_list"),
+    path('profiles/edit/', EditProfile.as_view(), name="edit_profile")
 ]

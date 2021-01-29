@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MainUser, SolderPost, Exhibit
-from django.views.generic import ListView, DetailView, View
-from .forms import SolderForm, SignUpForm
+from django.views.generic import ListView, DetailView, View, FormView
+from .forms import SolderForm, SignUpForm, EditProfileForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 
@@ -158,4 +158,11 @@ class ProfileList(ListView):
     def get_queryset(self):
         queryset = reversed(MainUser.objects.all().order_by("uploads_amount"))
         return queryset
+
+class EditProfile(FormView):
+    form_class = EditProfileForm
+    template_name = 'registration/edit_profile.html'
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
 
