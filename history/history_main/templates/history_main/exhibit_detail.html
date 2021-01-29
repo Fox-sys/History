@@ -5,7 +5,7 @@
         <img src="{{ object.image.url }}" alt="" width="300">
         <p>{{ object.name }}</p>
         <div class="desc">
-            {{ object.desc|slice:"100" }}{% if object.desc|length > 100 %}...{% endif %}
+            {{ object.desc }}
         </div>
     </div>
 {% endblock %}

@@ -105,7 +105,7 @@ class Register(View):
         """
         Post method for Register view
         """
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save() 
             user = authenticate(username=form.cleaned_data['username'], password=form.clean_password2())
@@ -154,4 +154,8 @@ class ProfileList(ListView):
     """
     model = MainUser
     template_name = "registration/profile_list.html"
+
+    def get_queryset(self):
+        queryset = reversed(MainUser.objects.all().order_by("uploads_amount"))
+        return queryset
 
