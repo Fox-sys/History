@@ -9,7 +9,7 @@
                 <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
             </span>
             <div class="solder_desc">
-                {{ solder.desc|slice:"100" }}{% if solder.desc|length > 100 %}...{% endif %}
+                {{ solder.desc|slice:"100" }}{% if solder.desc|length > 100 %}...{% endif %} <br>
                 Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
                 Дата рождения: {{ solder.birth_date.day }} {% if solder.birth_date.month|length < 2 %}0{% endif %}{{ solder.birth_date.month }} {{ solder.birth_date.year }} <br>
                 {% if not solder.is_alive %}

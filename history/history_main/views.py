@@ -163,6 +163,14 @@ class EditProfile(FormView):
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
 
+    def get(self, request):
+        form = self.form_class(instance=request.user)
+        return render(request, self.template_name, context={'form': form})
+
+
     def post(self, request):
-        form = self.form_class(request.POST, request.FILES)
+        form = self.form_class(request.POST, request.FILES, instance=request.user)
+        if form.is_valid:
+            form.save()
+        return redirect(request.user.get_absolute_url())
 

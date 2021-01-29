@@ -25,8 +25,8 @@ class EditProfileForm(forms.ModelForm):
     """
     Form for editing profile
     """
-    password1 = forms.PasswordInput()
-    password2 = forms.PasswordInput()
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
 
     class Meta:

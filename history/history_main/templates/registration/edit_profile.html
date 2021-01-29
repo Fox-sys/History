@@ -7,12 +7,16 @@
     <div class="edit_profile_form">
         <form method="post", action="{% url 'edit_profile' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="">Логин: {{ form.username }}</label><br>
             <label for="">Имя: {{ form.first_name }}</label><br>
+            <label for="">Отчество: {{ form.middle_name }}</label><br>
             <label for="">Фамилия: {{ form.last_name }}</label><br>
             <label for="">Пароль: {{ form.password1 }}</label><br>
             <label for="">Повтор пароля: {{ form.password2 }}</label><br>
             <label for="">Аватар: {{ form.avatar }}</label><br>
+            <label for="">Почта: {{ form.email }}</label><br>
+            <label for="">Видимость почты: {{ form.email_is_hidden }}</label><br>
+            <label for="">Телефон: {{ form.phone }}</label><br>
+            <label for="">Видимость телефона: {{ form.phone_is_hidden }}</label><br>
             <button type="submit">Редактировать</button>
         </form>
         {% if form.errors %}

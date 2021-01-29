@@ -10,7 +10,7 @@
             <a href="{% url 'profile_detail' pk=object.creator.id %}">{{ object.creator.last_name }} {{ object.creator.first_name }}</a>
         </span>
         <div class="desc">
-            {{ object.desc }}
+            {{ object.desc }} <br>
             Статус: {% if object.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
             Дата рождения: {{ object.birth_date.day }} {% if object.birth_date.month|length < 2 %}0{% endif %}{{ object.birth_date.month }} {{ object.birth_date.year }} <br>
             {% if not object.is_alive %}
