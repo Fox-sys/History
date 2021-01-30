@@ -1,0 +1,44 @@
+body {
+    background-color: antiquewhite;
+}
+
+nav:before {
+    content: '';
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: #883F41;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+ul {
+    list-style: none;
+    height: 50;
+    margin: 0;
+    padding: 0;}
+
+ul li {
+    float: left;
+}
+
+ul li a {
+    color: #fff;
+    display: block;
+    height: 50px;
+    padding: 0 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 50px;
+}
+
+ul li a:hover {
+    background-color: #fff;
+    color: #883F41;
+}
+
+a > img {
+    height: 45px;
+    width: auto;
+}
