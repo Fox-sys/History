@@ -1,22 +1,35 @@
 {% extends 'history_main/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block title %}
     Регистрация
 {% endblock title %}
 
 {% block main %}
-    <div class="register_form">
-        <form method="post", action="{% url 'register' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="">Логин: {{ form.username }}</label><br>
-            <label for="">Имя: {{ form.first_name }}</label><br>
-            <label for="">Фамилия: {{ form.last_name }}</label><br>
-            <label for="">Пароль: {{ form.password1 }}</label><br>
-            <label for="">Повтор пароля: {{ form.password2 }}</label><br>
-            <label for="">Аватар: {{ form.avatar }}</label><br>
-            <button type="submit">Регистрация</button>
-        </form>
-        {% if form.errors %}
-            {{ form.errors }}
-        {% endif %}
+    <div class="form_container">
+        <div>
+            <p class="title">Регистрация</p>
+            <form method="post", action="{% url 'register' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="form_label">Логин: </label>
+                <input name="username" type="text" class="form_input">
+                <label class="form_label">Имя: </label>
+                <input name="first_name" type="text" class="form_input">
+                <label class="form_label">Фамилия: </label>
+                <input name="last_name" type="text" class="form_input">
+                <label class="form_label">Пароль: </label>
+                <input name="password1" type="text" class="form_input">
+                <label class="form_label">Повтор пароля: </label>
+                <input name="password2" type="text" class="form_input">
+                <label class="form_label">Аватар: </label>
+                <input type="file" name="avatar" accept="image/" id="">
+                <button class="submit_button" type="submit">Регистрация</button>
+                {% if form.errors %}
+                    <span>Форма заполнена неверно, убедитесь в том, что все поля заполнены корректно</span>
+                {% endif %}
+            </form>
+        </div>
     </div>
 {% endblock main %}

@@ -1,22 +1,28 @@
 {% extends 'history_main/base.html' %}
+{% load static %}
 {% block title %}Главная{% endblock %}
+{% block extra_css %}
+    <link href="{% static 'solder.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block main %}
     {% for solder in object_list %}
         <div class="sindle_solder">
-            <img src="{{ solder.photo.url }}" alt="" width="300">
-            <p>{{ solder.last_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
-            <span>Автор: 
-                <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
-            </span>
-            <div class="solder_desc">
-                {{ solder.desc|slice:"100" }}{% if solder.desc|length > 100 %}...{% endif %} <br>
-                Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
-                Дата рождения: {{ solder.birth_date.day }} {% if solder.birth_date.month|length < 2 %}0{% endif %}{{ solder.birth_date.month }} {{ solder.birth_date.year }} <br>
-                {% if not solder.is_alive %}
-                    Дата смерти: {{ solder.death_date.day }} {% if solder.death_date.month|length < 2 %}0{% endif %}{{ solder.death_date.month }} {{ solder.death_date.year }} <br>
-                {% endif %}
+            <img class="photo" src="{{ solder.photo.url }}" alt="">
+            <div class="info">
+                <p class="name">{{ solder.last_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
+                <span class="auther">Автор: 
+                    <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
+                </span>
+                <div class="solder_desc">
+                    {{ solder.desc|slice:"400" }}{% if solder.desc|length > 400 %}...{% endif %} <br>
+                    Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
+                    Дата рождения: {{ solder.birth_date.day }} {% if solder.birth_date.month|length < 2 %}0{% endif %}{{ solder.birth_date.month }} {{ solder.birth_date.year }} <br>
+                    {% if not solder.is_alive %}
+                        Дата смерти: {{ solder.death_date.day }} {% if solder.death_date.month|length < 2 %}0{% endif %}{{ solder.death_date.month }} {{ solder.death_date.year }} <br>
+                    {% endif %}
+                </div>
+                <a class="action" href="{% url 'solder_detail' pk=solder.id %}">Подробнее</a>
             </div>
-            <a href="{% url 'solder_detail' pk=solder.id %}">Подробнее</a>
         </div>
     {% endfor %}
 {% endblock main %}

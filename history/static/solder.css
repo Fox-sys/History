@@ -1,0 +1,56 @@
+a {
+    text-decoration: none;
+}
+
+.sindle_solder {
+    display: flex;
+    padding: 30px;
+}
+
+.photo {
+    width: 40%;
+}
+
+.info {
+    width: 40%;
+    margin-left: 10%;
+}
+
+.name {
+    background-color: #883F41;
+    border: 8px solid #883F41;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: #fff;
+}
+
+.auther {
+    position: relative;
+    top: -15px;
+}
+
+.auther > a {
+    color: #000;
+}
+
+.auther > a:hover {
+    text-decoration: underline;
+}
+
+.solder_desc {
+    background-color: #faebd7;
+    border: 10px solid #faebd7;
+}
+
+.action {
+    color: #fff;
+    background-color: #883F41;
+    border: 8px solid #883F41;
+    position: relative;
+    top: 10px;
+}
+
+.action:hover{
+    text-decoration: underline;
+}

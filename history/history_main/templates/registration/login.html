@@ -1,24 +1,35 @@
 {% extends 'history_main/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block title %}
     Авторизация
 {% endblock title %}
-
 {% block main %}
     {% if user.is_authenticated %}
         <script>
             document.location.href = "/";
         </script>
     {% endif %}
-    <div class="auth_form">
-        <form method="post" action='{% url "login" %}'>
-            {% csrf_token %}
-            <label for="">Логин: {{ form.username }}</label><br>
-            <label for="">Пароль: {{ form.password }}</label><br>
-            <input type="submit" value="Авторизация">
-            <input type="hidden" name="next" value="{{ next }}">
-        </form>
+    <div class="form_container">
+        <div>
+            <p class="title">Авторизация</p>
+            <form method="post" action='{% url "login" %}'>
+                {% csrf_token %}
+                <label class="form_label">Логин: </label>
+                <input type="text" class="form_input" name="username">
+                <label class="form_label">Пароль: </label>
+                <input type="password" class="form_input" name="password">
+                <button class="submit_button" >Авторизация</button>
+                <input type="hidden" name="next" value="{{ next }}">
+                {% if form.errors %}
+                    <span>Неверное имя пользователя или пароль</span>
+                {% endif %}
+            </form>
+            
+        </div>
+        
     </div>
-    {% if form.errors %}
-        <p>Неверное имя пользователя или пароль</p>
-    {% endif %}
+   
 {% endblock main %}
