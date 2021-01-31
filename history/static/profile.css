@@ -17,7 +17,7 @@ a {
 
 .image_container {
     background-color: #fff;
-    width: 200%;
+    width: 100%;
     padding: 8px;
     margin-top: 15%;
 }
@@ -28,7 +28,7 @@ a {
 
 .info {
     width: 40%;
-    margin-left: 20%;
+    margin-left: 5%;
 }
 
 .name {
@@ -77,4 +77,10 @@ a {
 
 .post_image {
     width: 100%;
+}
+
+.left {
+    width: 40%;
+    position: relative;
+    top: -40px;
 }
