@@ -1,26 +1,47 @@
 {% extends 'history_main/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block title %}
     Редактировать профиль
 {% endblock title %}
 
 {% block main %}
-    <div class="edit_profile_form">
-        <form method="post", action="{% url 'edit_profile' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="">Имя: {{ form.first_name }}</label><br>
-            <label for="">Отчество: {{ form.middle_name }}</label><br>
-            <label for="">Фамилия: {{ form.last_name }}</label><br>
-            <label for="">Пароль: {{ form.password1 }}</label><br>
-            <label for="">Повтор пароля: {{ form.password2 }}</label><br>
-            <label for="">Аватар: {{ form.avatar }}</label><br>
-            <label for="">Почта: {{ form.email }}</label><br>
-            <label for="">Видимость почты: {{ form.email_is_hidden }}</label><br>
-            <label for="">Телефон: {{ form.phone }}</label><br>
-            <label for="">Видимость телефона: {{ form.phone_is_hidden }}</label><br>
-            <button type="submit">Редактировать</button>
-        </form>
-        {% if form.errors %}
-            {{ form.errors }}
-        {% endif %}
+    <div class="form_container">
+        <div>
+            <p class="title">Редактировать профиль</p>
+            <form method="post", action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="form_label">Имя: </label>
+                <input value="{{ form.first_name.value }}" name="first_name" type="text" class="form_input">
+                <label class="form_label">Отчество: </label>
+                <input value="{{ form.middle_name.value }}" name="middle_name" type="text" class="form_input">
+                <label class="form_label">Фамилия: </label>
+                <input value="{{ form.last_name.value }}" name="last_name" type="text" class="form_input">
+                <label class="form_label">Пароль: </label>
+                <input value="{{ form.password1.value }}" name="password1" type="text" class="form_input">
+                <label class="form_label">Повтор пароля: </label>
+                <input value="{{ form.password2.value }}" name="password2" type="text" class="form_input">
+                <label class="form_label">Аватар: </label>
+                <input type="file" name="avatar" id="" accept="images/" class="form_file">
+                <label class="form_label">Сейчас:</label>
+                <div>
+                    <img src="{{ user.avatar.url }}" alt="">
+                </div>
+                <label class="form_label">Почта: </label>
+                <input value="{{ form.email.value }}" type="email" name="email" id="" class="form_input">
+                <label class="form_label">Спрятать почту?: </label>
+                <input checked type="checkbox" name="email_is_hidden" id="" class="form_checkbox">
+                <label class="form_label">Телефон: </label>
+                <input value="{{ form.phone.value }}" name="phone" type="text" class="form_input">
+                <label class="form_label">Спрятать телефон?: </label>
+                <input checked type="checkbox" name="phone_is_hidden" id="" class="form_checkbox">
+                <button class="submit_button" type="submit">Редактировать</button>
+                {% if form.errors %}
+                    <span>{{ form.errors }}</span>
+                {% endif %}
+            </form>
+        </div>
     </div>
 {% endblock main %}

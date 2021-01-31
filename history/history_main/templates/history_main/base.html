@@ -28,6 +28,7 @@
                     <a class="item" href="{% url 'login' %}">Авторизация</a>
                     <a class="item" href="{% url 'register' %}">Регистрация</a>
                 {% else %}
+                    <a class="item" href="{% url 'profile_detail' pk=user.pk %}">Профиль</a>
                     <a class="item" href="{% url 'logout' %}">Выход</a>
                 {% endif %}
             </div>

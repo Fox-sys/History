@@ -29,10 +29,10 @@
                 <label class="form_label">Дата смерти: </label>
                 <input class="form_date" type="date" name="death_date" id="">
                 <button class="submit_button" type="submit">отправить</button>
+                {% if form.errors %}
+                    <span>Возникла какая то ошибка, проверьте, все ли поля отмеченный знаком "*" заполнены</span>
+                {% endif %}
             </form>
-            {% if form.errors %}
-                <span>Возникла какая то ошибка, проверьте, все ли поля отмеченный знаком "*" заполнены</span>
-            {% endif %}
         </div>
     </div>
 {% endblock main %}

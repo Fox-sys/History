@@ -1,16 +1,26 @@
 {% extends 'history_main/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'profile.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block title %}Профили{% endblock %}
 {% block main %}
     {% for profile in object_list %}
         <div class="single_profile">
-            <img src="{{ profile.avatar.url }}" alt="" width="300">
-            <p>{{ profile.last_name }} {{ profile.first_name }}</p>
-            <div class="desc">
-                Последний раз был в сети: {{ profile.last_login.day }} {% if profile.last_login.month|length < 2 %}0{% endif %}{{ profile.last_login.month }} {{ profile.last_login.year }}: {{ profile.last_login.time }}<br>
-                Статус: {% if profile.is_admin %}Администратор{% elif profile.is_moderator %}Модератор{% else %}Пользователь{% endif %} <br>
-                Количество публекаций: {{ profile.uploads_amount }}
+            <div>
+                <div class="image_container">
+                    <img class="image" src="{{ profile.avatar.url }}" alt="">
+                </div>
             </div>
-            <a href="{% url 'profile_detail' pk=profile.id %}">Подробнее</a>
+            <div class="info">
+                <p class="name">{{ profile.last_name }} {{ profile.first_name }}</p>
+                <div class="profile_desc">
+                    Последний раз был в сети: {{ profile.last_login.day }} {% if profile.last_login.month|length < 2 %}0{% endif %}{{ profile.last_login.month }} {{ profile.last_login.year }}: {{ profile.last_login.time }}<br>
+                    Статус: {% if profile.is_admin %}Администратор{% elif profile.is_moderator %}Модератор{% else %}Пользователь{% endif %} <br>
+                    Количество публекаций: {{ profile.uploads_amount }}
+                </div>
+            <a class="action" href="{% url 'profile_detail' pk=profile.id %}">Подробнее</a>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
