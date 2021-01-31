@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link href="{% static 'header.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'main.css' %}" type="text/css" rel="stylesheet">
+    <script src="{% static 'ask.js' %}" ></script>
     {% block extra_css %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -29,7 +30,7 @@
                     <a class="item" href="{% url 'register' %}">Регистрация</a>
                 {% else %}
                     <a class="item" href="{% url 'profile_detail' pk=user.pk %}">Профиль</a>
-                    <a class="item" href="{% url 'logout' %}">Выход</a>
+                    <a class="item" onclick="ask('Вы уверены, что хотите выйти?', '{% url 'confirm_logout' %}')">Выход</a>
                 {% endif %}
             </div>
     </header>

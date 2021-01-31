@@ -23,7 +23,7 @@
                 {% endif %}
             </div>
             {% if user == object.creator or user.is_staff %}
-                <a class="action" href="{% url 'delete_solder' pk=object.id %}">Удалить</a>
+                <a class="action" onclick="ask('Вы уверены, что хотите удалить эту запись?', '{% url 'confirm_delete_solder' pk=object.pk %}')">Удалить</a>
             {% endif %}
         </div>
     </div>
