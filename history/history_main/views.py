@@ -57,15 +57,6 @@ class CreateUpdateSolder(View):
                 return redirect('/')
             return render(request, self.template_name, context={"form": self.form_class(request.POST)})
         return redirect('/')
-   
-class AskDeleteSolder(View):
-    """
-    Delete view for solders.
-    Takes one positional arg (pk).
-    """
-    template_name = "history_main/ask_delete.html"
-    def get(self, request, pk):
-        return render(request, self.template_name, context={"pk":pk})
 
 
 class ConfirmDeleteSolder(View):
@@ -116,12 +107,6 @@ class Register(View):
 class ConfirmLogoutView(LogoutView):
     """Logout view for users"""
     template_name = "registration/logout.html"
-    
-
-class AskLogoutView(View):
-    template_name = "registration/ask_logout.html"
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 class ExhibitList(ListView):
@@ -160,6 +145,9 @@ class ProfileList(ListView):
         return queryset
 
 class EditProfile(FormView):
+    """
+    View for editing profile
+    """
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
 

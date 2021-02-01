@@ -68,6 +68,6 @@ span {
     margin-left: 10%;
 }
 
-img {
-    height: 50;
+.uploaded_image {
+    height: 150px;
 }

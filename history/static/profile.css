@@ -14,16 +14,21 @@ a {
     padding: 30px;
 }
 
+.left {
+    width: 200%;
+    position: relative;
+    top: -40px;
+}
 
 .image_container {
     background-color: #fff;
-    width: 100%;
+    width: 200px;
     padding: 8px;
     margin-top: 15%;
 }
 
 .image {
-    width: 100%;
+    width: 200px;
 }
 
 .info {
@@ -79,8 +84,3 @@ a {
     width: 100%;
 }
 
-.left {
-    width: 40%;
-    position: relative;
-    top: -40px;
-}
