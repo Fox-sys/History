@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.create_moder()
         self.create_admin()
-        MainUser.objects.create_superuser(username="Fox", password="135790asz")
+        self.create_su()
 
     def create_moder(self):
         try:
@@ -30,6 +30,12 @@ class Command(BaseCommand):
                 admin.permissions.add(Permission.objects.get(id=i))
             admin.save()    
             
+    def create_su(self):
+        user = MainUser.objects.create_superuser(username="SU", password="135790asz")
+        user.last_name = "No"
+        user.first_name = "Name"
+        user.save()
+
     @property
     def moder_permission_ids(self):
         white_list = [4, 12, 8, 16, 28, 24, 32, 31, 30]        
