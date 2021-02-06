@@ -6,9 +6,31 @@ class Command(BaseCommand):
     help = "Preparing database"
 
     def handle(self, *args, **kwargs):
-        self.create_moder()
-        self.create_admin()
-        self.create_su()
+        print("Preparing database...")
+        print("creating moder group...")
+        try:
+            self.create_moder()
+            print("moder group created")
+        except Exception as e:
+            print("can't create moder group")
+            print(e)
+        print("creating admin group...")
+        try:
+            self.create_admin()
+            print("admin group created")
+        except Exception as e:
+            print("can't create admin group")
+            print(e)
+        print("creating superuser group...")
+        try:
+            self.create_su()
+            print("superuser created")
+            print("login: SU")
+            print("password: 135790asz")
+        except Exception as e:
+            print("can't create superuser")
+            print(e)
+        
 
     def create_moder(self):
         try:
