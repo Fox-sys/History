@@ -15,7 +15,7 @@ a {
 }
 
 .left {
-    width: 200%;
+    width: 35%;
     position: relative;
     top: -40px;
 }
@@ -33,7 +33,7 @@ a {
 
 .info {
     width: 40%;
-    margin-left: 5%;
+    margin-left: 10%;
 }
 
 .name {
@@ -82,5 +82,9 @@ a {
 
 .post_image {
     width: 100%;
+}
+
+.post_link:hover {
+    text-decoration: underline;
 }
 

@@ -10,9 +10,6 @@ How to install?
 8) python3 manage.py makemigrations && python3 manage.py migrate
 9) python3 manage.py runserver
 
-# update comment:
-First alpha version of this projects. There are still to many bugs to fix
-
 # Patch Note:
-1) Added page for changing password
-2) Some small fixes for fill_db script
+1) Fixed layout for profile pages
+2) added registreation and changepassword link to login page

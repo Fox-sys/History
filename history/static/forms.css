@@ -6,7 +6,7 @@
 
 .form_container > div {
     /* background-color: #883F41; */
-    width: 40%;
+    width: 35%;
 }
 
 .title {
@@ -70,4 +70,19 @@ span {
 
 .uploaded_image {
     height: 150px;
+    background-color: #fff;
+    padding: 5px;
+}
+
+.add {
+    margin-left: 15%;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.add > a {
+    /* text-decoration: none; */
+    color: #000;
 }

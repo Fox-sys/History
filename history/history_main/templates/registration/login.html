@@ -23,13 +23,15 @@
                 <input type="password" class="form_input" name="password">
                 <button class="submit_button" >Авторизация</button>
                 <input type="hidden" name="next" value="{{ next }}">
+                <div class="add">
+                    <a href="{% url 'register' %}">Регистрация</a>
+                    <a href="{% url 'change_password' %}">Забыл пароль</a>
+                </div>
                 {% if form.errors %}
                     <span>Неверное имя пользователя или пароль</span>
                 {% endif %}
             </form>
-            
         </div>
-        
     </div>
    
 {% endblock main %}
