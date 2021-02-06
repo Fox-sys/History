@@ -23,6 +23,6 @@ from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordCha
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('', include('history_main.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

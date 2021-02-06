@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'history_main'
+    'history_main',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +142,10 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 AUTH_USER_MODEL = 'history_main.MainUser'
 LOGIN_REDIRECT_URL = "/"
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'historysh45@gmail.com'
+EMAIL_HOST_PASSWORD = '135790asz'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

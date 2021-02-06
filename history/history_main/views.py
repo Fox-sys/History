@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MainUser, SolderPost, Exhibit
 from django.views.generic import ListView, DetailView, View, FormView
-from .forms import SolderForm, SignUpForm, EditProfileForm
+from .forms import SolderForm, SignUpForm, EditProfileForm, ChangePasswordForm, GetUserForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
+from django.core.mail import send_mail
+from django.conf import settings
 
 class SolderList(ListView):
     """
@@ -68,11 +70,9 @@ class ConfirmDeleteSolder(View):
         post = get_object_or_404(SolderPost, pk=pk)
         if request.user.is_authenticated:
             if post.creator == request.user or request.user.is_staff:
-                if post.creator == request.user:
-                    request.user.uploads.remove(post)
-                    request.user.uploads_amount -= 1
+                post.creator.uploads_amount -= 1
+                post.creator.save()
                 post.delete()
-                request.user.save()
         return redirect('/')
 
     
@@ -104,9 +104,35 @@ class Register(View):
             return redirect('/')
         return render(request, self.template_name, context={"form":form})
 
+
 class ConfirmLogoutView(LogoutView):
     """Logout view for users"""
     template_name = "registration/logout.html"
+
+
+class ChangePasswordView(FormView):
+    form_class_get_user = GetUserForm
+    form_class_change_password = ChangePasswordForm
+    template_name_get_user = 'registration/get_username.html'
+    template_name_change_password = "registration/change_password.html"
+
+    def get(self, request):
+        return render(request, self.template_name_get_user, context={"form": self.form_class_get_user()})
+
+    def post(self, request):
+        if "user" in request.POST:
+            form = self.form_class_change_password(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/login')
+        else:
+            form = self.form_class_get_user(request.POST)
+            if form.is_valid():
+                user = get_object_or_404(MainUser, username=form.get_username())
+                send_mail(f'Сброс пароля', f"Секретныый ключ: {user.secret_key}",
+                                    settings.DEFAULT_FROM_EMAIL, [user.email])
+                return render(request, self.template_name_change_password, context={"user": user})
+            return render(request, self.template_name_get_user, context={"form": form})
 
 
 class ExhibitList(ListView):

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from random import choice
+from string import ascii_letters
 
 class MainUser(AbstractUser):
     """
@@ -15,6 +17,7 @@ class MainUser(AbstractUser):
     uploads_amount = models.PositiveIntegerField(default=0)
     is_moderator = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    secret_key = models.CharField(max_length=20, default=''.join(choice(ascii_letters) for i in range(20)))
 
     def __str__(self):
         return f"{self.id} - {self.username} {self.last_name} {self.first_name} {self.uploads_amount}"

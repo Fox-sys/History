@@ -3,7 +3,7 @@ from .views import SolderList, SolderDetail, CreateUpdateSolder, \
                    Register, ConfirmLogoutView, \
                    ExhibitDetail, ExhibitList, ProfileDetail, \
                    ProfileList, ConfirmDeleteSolder, \
-                   EditProfile
+                   EditProfile, ChangePasswordView
 
 urlpatterns = [
     path('', SolderList.as_view(), name="index"),
@@ -17,5 +17,6 @@ urlpatterns = [
     path('exhibits/<int:pk>', ExhibitDetail.as_view(), name="exhibit_detail"),
     path('profiles/<int:pk>', ProfileDetail.as_view(), name="profile_detail"),
     path('profiles/', ProfileList.as_view(), name="profile_list"),
-    path('profiles/edit/', EditProfile.as_view(), name="edit_profile")
+    path('profiles/edit/', EditProfile.as_view(), name="edit_profile"),
+    path('changepassword/', ChangePasswordView.as_view(), name="change_password"),
 ]

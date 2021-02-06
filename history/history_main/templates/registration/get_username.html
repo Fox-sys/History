@@ -1,0 +1,24 @@
+{% extends 'history_main/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+{% block title %}
+    Редактировать профиль
+{% endblock title %}
+{% block main %}
+    <div class="form_container">
+        <div>
+            <p class="title">Введите имя пользователя (login)</p>
+            <form method="post", action="{% url 'change_password' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="form_label">Имя пользователя: </label>
+                <input name="username" id="" class="form_input">
+                <button class="submit_button" type="submit">Редактировать</button>
+                {% if form.errors %}
+                    <span>Заполните все поля данной формы</span>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock main %}
