@@ -6,6 +6,7 @@ How to install?
 4) sudo docker-compose up --build
 5) sudo docker-compose exec web python manage.py migrate
 6) sudo docker-compose exec web python manage.py fill_db
+
 Superuser account: SU 135790asz
 
 # Developer comment
