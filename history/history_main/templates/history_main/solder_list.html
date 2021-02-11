@@ -9,7 +9,7 @@
         <div class="sindle_solder">
             <img class="photo" src="{{ solder.photo.url }}" alt="">
             <div class="info">
-                <p class="name">{{ solder.last_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
+                <p class="name">{{ solder.first_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
                 <span class="auther">Автор: 
                     <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
                 </span>

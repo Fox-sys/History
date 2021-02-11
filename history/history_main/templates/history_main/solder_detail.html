@@ -10,7 +10,7 @@
     <div class="sindle_solder">
         <img class="photo" src="{{ object.photo.url }}" alt="" width="300">
         <div class="info">
-            <p class="name">{{ object.last_name }} {{ object.middle_name }} {{object.last_name}}</p>
+            <p class="name">{{ object.first_name }} {{ object.middle_name }} {{object.last_name}}</p>
             <span class="auther">Автор: 
                 <a href="{% url 'profile_detail' pk=object.creator.id %}">{{ object.creator.last_name }} {{ object.creator.first_name }}</a>
             </span>
