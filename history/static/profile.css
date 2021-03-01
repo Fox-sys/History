@@ -7,6 +7,7 @@ a {
     padding: 30px;
     width: 50%;
     margin-left: 25%;
+    background-color: #EFD0A8;
 }
 
 .single_profile_det {
@@ -25,6 +26,8 @@ a {
     width: 200px;
     padding: 8px;
     margin-top: 15%;
+    border: 5px solid #000;
+
 }
 
 .image {

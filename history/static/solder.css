@@ -5,11 +5,13 @@ a {
 .sindle_solder {
     display: flex;
     padding: 30px;
+    background-color: #EFD0A8;
 }
 
 .photo {
     width: 40%;
     height: 40%;
+    border: 5px solid #000;
 }
 
 .info {

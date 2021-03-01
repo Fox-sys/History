@@ -35,10 +35,18 @@
             </div>
     </header>
     <main>
+        <!-- <div class="lenta-right lenta"><img src="{% static 'lenta.jpg' %}" alt=""></div> -->
         <div class="content">
             {% block main %}{% endblock %}
         </div>
     </main>
-    <br><br><br><br><br>
+    <style>
+        html {
+            background-image: url("{% static 'back.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-attachment: fixed;
+        }
+    </style>
 </body>
 </html>

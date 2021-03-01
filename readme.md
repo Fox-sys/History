@@ -10,5 +10,5 @@ How to install?
 Superuser account: SU 135790asz
 
 # Patch Note:
-1) Fixed layout for images at solder and exibit detail pages
-2) Fixed small mistake with solders names.
+Layout fix
+
