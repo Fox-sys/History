@@ -27,7 +27,7 @@
                 <input type="file" name="avatar" accept="image/" id="">
                 <button class="submit_button" type="submit">Регистрация</button>
                 {% if form.errors %}
-                    <span>Форма заполнена неверно, убедитесь в том, что все поля заполнены корректно</span>
+                    <span>{{form.errors}}</span>
                 {% endif %}
             </form>
         </div>

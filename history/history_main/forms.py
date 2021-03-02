@@ -52,7 +52,6 @@ class ChangePasswordForm(forms.Form):
 
 
     def check_password(self, user):
-        print(self.cleaned_data)
         if len(self.cleaned_data['password2']) >= 8 and self.cleaned_data['password1'] == self.cleaned_data['password2'] and user.secret_key == self.cleaned_data['secret_key']:
             return self.cleaned_data['password2']
         return None

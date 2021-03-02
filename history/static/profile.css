@@ -5,7 +5,7 @@ a {
 .single_profile {
     display: flex;
     padding: 30px;
-    width: 50%;
+    width: 52%;
     margin-left: 25%;
     background-color: #EFD0A8;
 }
@@ -13,6 +13,7 @@ a {
 .single_profile_det {
     display: flex;
     padding: 30px;
+    background-color: #EFD0A8;
 }
 
 .left {
@@ -35,7 +36,7 @@ a {
 }
 
 .info {
-    width: 40%;
+    width: 50%;
     margin-left: 10%;
 }
 
@@ -89,5 +90,4 @@ a {
 
 .post_link:hover {
     text-decoration: underline;
-}
-
+}/* iDI OTUSDOVA TEBIA SUDA NE ZVALI */

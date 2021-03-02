@@ -151,3 +151,18 @@ EMAIL_HOST_USER = 'historysh45@gmail.com'
 EMAIL_HOST_PASSWORD = '135790asz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}

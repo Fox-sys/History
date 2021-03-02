@@ -5,6 +5,7 @@ a {
 .single_exhibit {
     display: flex;
     padding: 30px;
+    background-color: #EFD0A8;
 }
 
 .image {

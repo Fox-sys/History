@@ -10,5 +10,6 @@ How to install?
 Superuser account: SU 135790asz
 
 # Patch Note:
-Layout fix
+1) Fixed layout
+2) added logging 
 

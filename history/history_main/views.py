@@ -6,6 +6,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import HttpResponse
+import logging
+
+LVLS = ["INFO", "WARNING", "ERROR"]
+
+LOGGER = logging.getLogger(__name__)
+
+def get_logger_template(lvl, message):
+    return f"[{LVLS[lvl]}] - {message}"
 
 class SolderList(ListView):
     """
@@ -56,6 +65,9 @@ class CreateUpdateSolder(View):
                     request.user.uploads.add(obj)
                     request.user.uploads_amount += 1
                     request.user.save()
+                    LOGGER.info(get_logger_template(0, f"Created solder with id {obj.id}"))
+                else:
+                    LOGGER.info(get_logger_template(0, f"Updated solder with id {obj.id}"))
                 return redirect('/')
             return render(request, self.template_name, context={"form": self.form_class(request.POST)})
         return redirect('/')
@@ -73,6 +85,7 @@ class ConfirmDeleteSolder(View):
                 post.creator.uploads_amount -= 1
                 post.creator.save()
                 post.delete()
+                LOGGER.info(get_logger_template(0, f'deleted solder by {request.user.id}'))
         return redirect('/')
 
     
@@ -101,6 +114,7 @@ class Register(View):
             form.save() 
             user = authenticate(username=form.cleaned_data['username'], password=form.clean_password2())
             login(request, user)
+            LOGGER.info(get_logger_template(0, f'Created new user name: {user.first_name} {user.last_name}'))
             return redirect('/')
         return render(request, self.template_name, context={"form":form})
 
@@ -123,8 +137,10 @@ class ChangePasswordView(FormView):
         if "user" in request.POST:
             form = self.form_class_change_password(request.POST)
             if form.is_valid():
-                form.save()
-                return redirect('/login')
+                obj = form.save()
+                if obj:
+                    logging.info(get_logger_template(0, f"Был изменён пароль для пользователя: {obj.id}"))
+                    return redirect('/login')
         else:
             form = self.form_class_get_user(request.POST)
             if form.is_valid():
@@ -133,6 +149,7 @@ class ChangePasswordView(FormView):
                                     settings.DEFAULT_FROM_EMAIL, [user.email])
                 return render(request, self.template_name_change_password, context={"user": user})
             return render(request, self.template_name_get_user, context={"form": form})
+        return render(request, self.template_name_change_password, context={"form": self.form_class_change_password(), "message": "Неверный ключ или пароли не совпадают"})
 
 
 class ExhibitList(ListView):
@@ -187,4 +204,3 @@ class EditProfile(FormView):
         if form.is_valid:
             form.save()
         return redirect(request.user.get_absolute_url())
-
