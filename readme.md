@@ -10,6 +10,7 @@ How to install?
 Superuser account: SU 135790asz
 
 # Patch Note:
-1) Fixed layout
-2) added logging 
+Version: 0.2.0
+
+- Added anti bad word system
 
