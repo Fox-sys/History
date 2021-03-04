@@ -11,6 +11,7 @@ RUN apk update \
 RUN pip install --upgrade pip
 COPY ./req.txt .
 RUN pip install -r req.txt
+COPY ./badwords.txt .
 
 COPY ./entrypoint.sh .
 

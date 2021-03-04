@@ -78,3 +78,15 @@ class Exhibit(models.Model):
         verbose_name_plural = "Экспонаты"
     
 
+class BadWord(models.Model):
+    """
+        Words that shouldn't be on the site
+    """
+    word = models.CharField("Слово", max_length=150)
+    
+    def __str__(self):
+        return self.word
+
+    class Meta:
+        verbose_name = "Плохое слово"
+        verbose_name_plural = "Плохие слова"

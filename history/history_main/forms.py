@@ -1,14 +1,23 @@
 from django import forms
-from .models import SolderPost, MainUser
+from .models import SolderPost, MainUser, BadWord
 from django.contrib.auth.forms import UserCreationForm
 from random import choice
 from string import ascii_letters
-
+import re
 
 class SolderForm(forms.ModelForm):
     """
     Solder Model form
     """
+    def black_list_validated(self):
+        fields = ['first_name', 'middle_name', 'last_name', 'desc']
+        black_list = BadWord.objects.all()
+        for field in fields:
+            for word in black_list:
+                if not re.search(word.word, self.cleaned_data[field], re.M|re.I) is None:
+                    return {field: word}
+        return None
+
     class Meta:
         model = SolderPost
         fields = ['first_name', 'middle_name', 'last_name', 'desc', 'is_alive', 'photo', 'birth_date', 'death_date']

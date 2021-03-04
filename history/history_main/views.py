@@ -60,15 +60,18 @@ class CreateUpdateSolder(View):
             form = self.form_class(request.POST, request.FILES, instance=instance)
             form.instance.creator = MainUser.objects.get(id=request.user.id)
             if form.is_valid():
-                obj = form.save()
-                if instance is None:
-                    request.user.uploads.add(obj)
-                    request.user.uploads_amount += 1
-                    request.user.save()
-                    LOGGER.info(get_logger_template(0, f"Created solder with id {obj.id}"))
-                else:
-                    LOGGER.info(get_logger_template(0, f"Updated solder with id {obj.id}"))
-                return redirect('/')
+                black_list_errors = form.black_list_validated()
+                if black_list_errors is None:
+                    obj = form.save()
+                    if instance is None:
+                        request.user.uploads.add(obj)
+                        request.user.uploads_amount += 1
+                        request.user.save()
+                        LOGGER.info(get_logger_template(0, f"Created solder with id {obj.id}"))
+                    else:
+                        LOGGER.info(get_logger_template(0, f"Updated solder with id {obj.id}"))
+                    return redirect('/')
+                return render(request, self.template_name, context={"message": black_list_errors})
             return render(request, self.template_name, context={"form": self.form_class(request.POST)})
         return redirect('/')
 

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ...models import MainUser
+from ...models import MainUser, BadWord
 from django.contrib.auth.models import Group, Permission
 
 class Command(BaseCommand):
@@ -30,6 +30,9 @@ class Command(BaseCommand):
         except Exception as e:
             print("can't create superuser")
             print(e)
+        print("Adding bad words")
+        self.fill_badwords_db()
+        print("Bad words added")
         
 
     def create_moder(self):
@@ -67,3 +70,13 @@ class Command(BaseCommand):
     def admin_permission_ids(self):
         white_list = self.moder_permission_ids + [25, 26, 27, 23]
         return white_list
+
+    def get_list_from_file(self, list_file):
+        return list_file.read().split()
+
+    def fill_badwords_db(self):
+        f = open("/usr/src/history/badwords.txt", "r")
+        words = self.get_list_from_file(f)
+        f.close()
+        for word in words:
+            BadWord.objects.create(word=word).save()

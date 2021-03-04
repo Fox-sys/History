@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SolderPost, MainUser, Exhibit
+from .models import SolderPost, MainUser, Exhibit, BadWord
 from django.contrib.auth.admin import UserAdmin
 
 @admin.register(MainUser)
@@ -19,3 +19,4 @@ class MainUserAdmin(UserAdmin):
 
 admin.site.register(SolderPost)
 admin.site.register(Exhibit)
+admin.site.register(BadWord)

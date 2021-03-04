@@ -32,6 +32,13 @@
                 {% if form.errors %}
                     <span>Возникла какая то ошибка, проверьте, все ли поля отмеченный знаком "*" заполнены</span>
                 {% endif %}
+                {% if message %}
+                    <span>
+                        {% for key, value in message.items %}
+                            Поле {{ key }}: "{{value}}" находится в списке запрещённых слов 
+                        {% endfor %}
+                    </span>
+                {% endif %}
             </form>
         </div>
     </div>
