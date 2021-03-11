@@ -10,7 +10,7 @@ How to install?
 Superuser account: SU 135790asz
 
 # Patch Note:
-Version: 0.2.0
+Version: 0.2.1
 
-- Added anti bad word system
-
+- anti bad word system works (maybe correctly)
+- added simple pager

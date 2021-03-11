@@ -30,6 +30,13 @@ class Command(BaseCommand):
         except Exception as e:
             print("can't create superuser")
             print(e)
+        try:
+            self.create_test_user()
+            print("test created")
+            print("login: test")
+        except Exception as e:
+            print("can't create test user")
+            print(e)
         print("Adding bad words")
         self.fill_badwords_db()
         print("Bad words added")
@@ -75,8 +82,15 @@ class Command(BaseCommand):
         return list_file.read().split()
 
     def fill_badwords_db(self):
-        f = open("/usr/src/history/badwords.txt", "r")
+        f = open("badwords.txt", "r")
         words = self.get_list_from_file(f)
         f.close()
         for word in words:
             BadWord.objects.create(word=word).save()
+
+    def create_test_user(self):
+        user = MainUser.objects.create_user(username="test", password="135790asz")
+        user.last_name = "No"
+        user.first_name = "Name"
+        user.save()
+        

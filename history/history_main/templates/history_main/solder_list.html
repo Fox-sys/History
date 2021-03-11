@@ -1,19 +1,19 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
-{% block title %}Главная{% endblock %}
+{% block title %}Главная {% if not page == 1 %}страница: {{ page }}{% endif %} {{total}}{% endblock %}
 {% block extra_css %}
-    <link href="{% static 'solder.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'media.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block main %}
     {% for solder in object_list %}
-        <div class="sindle_solder">
-            <img class="photo" src="{{ solder.photo.url }}" alt="">
+        <div class="single_object">
+            <img class="image" src="{{ solder.photo.url }}" alt="">
             <div class="info">
                 <p class="name">{{ solder.first_name }} {{ solder.middle_name }} {{solder.last_name}}</p>
                 <span class="auther">Автор: 
                     <a href="{% url 'profile_detail' pk=solder.creator.id %}">{{ solder.creator.last_name }} {{ solder.creator.first_name }}</a>
                 </span>
-                <div class="solder_desc">
+                <div class="object_desc">
                     {{ solder.desc|slice:"400" }}{% if solder.desc|length > 400 %}...{% endif %} <br>
                     Статус: {% if solder.is_alive %} Жив {% else %} Мёртв {% endif %} <br>
                     Дата рождения: {{ solder.birth_date.day }}.{{ solder.birth_date.month }}.{{ solder.birth_date.year }} <br>
@@ -26,4 +26,13 @@
         </div>
         <br>
     {% endfor %}
+    {% if total > 1 %}
+    <div class="pages">
+        <a href="{% url 'index' %}" class="page_link action">Первая</a>
+        {% if page > 1 %}<a href="{% url 'index' %}?page={{last}}" class="action page_link"><- Предведущая</a>{% endif %}
+        {% if page != total %}<a href="{% url 'index' %}?page={{next}}" class="action page_link">Следущая -></a>{% endif %}
+        <a href="{% url 'index' %}?page={{total}}" class="action page_link">Последняя</a>
+    </div>
+    {% endif %}
+
 {% endblock main %}

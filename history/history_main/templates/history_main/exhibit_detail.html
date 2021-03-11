@@ -1,15 +1,15 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link href="{% static 'exhibit.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'media.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block title %}{{ object.name }}{% endblock %}
 {% block main %}
-    <div class="single_exhibit">
+    <div class="single_object">
         <img class="image" src="{{ object.image.url }}" alt="" width="300">
         <div class="info">
             <p class="name">{{ object.name }}</p>
-            <div class="exhibit_desc">
+            <div class="object_desc">
                 {{ object.desc }}
             </div>
         </div>

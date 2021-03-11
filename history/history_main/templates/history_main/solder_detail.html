@@ -1,13 +1,13 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link href="{% static 'solder.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'media.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block title %}
     {{object.last_name}} {{ object.first_name }} {{ object.middle_name }}
 {% endblock title %}
 {% block main %}
-    <div class="sindle_solder">
+    <div class="single_solder">
         <img class="photo" src="{{ object.photo.url }}" alt="" width="300">
         <div class="info">
             <p class="name">{{ object.first_name }} {{ object.middle_name }} {{object.last_name}}</p>

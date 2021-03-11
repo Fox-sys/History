@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from random import choice
@@ -85,8 +86,12 @@ class BadWord(models.Model):
     word = models.CharField("Слово", max_length=150)
     
     def __str__(self):
-        return self.word
+        # return f'{self.word}'.encode('windows-1251').decode('utf-8') # if using windows
+        return f'{self.word}'
 
     class Meta:
         verbose_name = "Плохое слово"
         verbose_name_plural = "Плохие слова"
+
+    def __unicode__(self):
+        return self.word

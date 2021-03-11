@@ -9,13 +9,15 @@ class SolderForm(forms.ModelForm):
     """
     Solder Model form
     """
+    filter_fields = ['first_name', 'middle_name', 'last_name', 'desc']
+    decode_fields = {'first_name': 'Имя', 'middle_name': 'Отчество', 'last_name': 'Фамилия', 'desc': 'Описание'}
+
     def black_list_validated(self):
-        fields = ['first_name', 'middle_name', 'last_name', 'desc']
         black_list = BadWord.objects.all()
-        for field in fields:
+        for field in self.filter_fields:
             for word in black_list:
-                if not re.search(word.word, self.cleaned_data[field], re.M|re.I) is None:
-                    return {field: word}
+                if not re.search(f'\d({word})\d', self.cleaned_data[field], re.M|re.I) is None:
+                    return {self.decode_fields[field]: word}
         return None
 
     class Meta:

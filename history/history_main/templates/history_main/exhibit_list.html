@@ -1,20 +1,28 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link href="{% static 'exhibit.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'media.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block title %}Музей{% endblock %}
 {% block main %}
     {% for exhibit in object_list %}
-        <div class="single_exhibit">
+        <div class="single_object">
             <img class="image" src="{{ exhibit.image.url }}" alt="" width="300">
             <div class="info">
                 <p class="name">{{ exhibit.name }}</p>
-                <div class="exhibit_desc">
+                <div class="object_desc">
                     {{ exhibit.desc|slice:"400" }}{% if exhibit.desc|length > 400 %}...{% endif %}
                 </div>
                 <a class="action" href="{% url 'exhibit_detail' pk=exhibit.id %}">Подробнее</a>
             </div>
         </div><br>
     {% endfor %}
+    {% if total > 1 %}
+    <div class="pages">
+        <a href="{% url 'exhibit_list' %}" class="page_link action">Первая</a>
+        {% if page > 1 %}<a href="{% url 'exhibit_list' %}?page={{last}}" class="action page_link"><- Предведущая</a>{% endif %}
+        {% if page != total %}<a href="{% url 'exhibit_list' %}?page={{next}}" class="action page_link">Следущая -></a>{% endif %}
+        <a href="{% url 'exhibit_list' %}?page={{total}}" class="action page_link">Последняя</a>
+    </div>
+    {% endif %}
 {% endblock %}

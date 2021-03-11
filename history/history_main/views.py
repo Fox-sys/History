@@ -22,6 +22,15 @@ class SolderList(ListView):
     """
     model = SolderPost
     template_name = "history_main/solder_list.html"
+    paginate_by = 10
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = int(self.request.GET.get('page', '1'))
+        context['total'] = (self.get_queryset().count() // 10) + 1 
+        context['next'] = context['page']+1 
+        context['last'] = context['page']-1 
+        return context
 
 class SolderDetail(DetailView):
     """
@@ -161,6 +170,15 @@ class ExhibitList(ListView):
     """
     model = Exhibit
     template_name = "history_main/exhibit_list.html"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = int(self.request.GET.get('page', '1'))
+        context['total'] = (self.get_queryset().count() // 10) + 1 
+        context['next'] = context['page']+1 
+        context['last'] = context['page']-1 
+        return context
 
 
 class ExhibitDetail(DetailView):
