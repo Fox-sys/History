@@ -66,3 +66,10 @@ a {
 .page_link {
     margin-left: 10px;
 }
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 10%;
+}

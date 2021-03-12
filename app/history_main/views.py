@@ -16,21 +16,25 @@ LOGGER = logging.getLogger(__name__)
 def get_logger_template(lvl, message):
     return f"[{LVLS[lvl]}] - {message}"
 
-class SolderList(ListView):
+class ListPagerView(ListView):
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = int(self.request.GET.get('page', '1'))
+        context['total'] = (self.get_queryset().count() // self.paginate_by) + 1 
+        context['next'] = context['page']+1 
+        context['last'] = context['page']-1 
+        return context
+
+
+class SolderList(ListPagerView):
     """
     View for serving list of solders
     """
     model = SolderPost
     template_name = "history_main/solder_list.html"
-    paginate_by = 10
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page'] = int(self.request.GET.get('page', '1'))
-        context['total'] = (self.get_queryset().count() // 10) + 1 
-        context['next'] = context['page']+1 
-        context['last'] = context['page']-1 
-        return context
+
 
 class SolderDetail(DetailView):
     """
@@ -164,21 +168,12 @@ class ChangePasswordView(FormView):
         return render(request, self.template_name_change_password, context={"form": self.form_class_change_password(), "message": "Неверный ключ или пароли не совпадают"})
 
 
-class ExhibitList(ListView):
+class ExhibitList(ListPagerView):
     """
     View for serving list of exibits
     """
     model = Exhibit
     template_name = "history_main/exhibit_list.html"
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page'] = int(self.request.GET.get('page', '1'))
-        context['total'] = (self.get_queryset().count() // 10) + 1 
-        context['next'] = context['page']+1 
-        context['last'] = context['page']-1 
-        return context
 
 
 class ExhibitDetail(DetailView):
@@ -197,7 +192,7 @@ class ProfileDetail(DetailView):
     template_name = "registration/profile_detail.html"
 
 
-class ProfileList(ListView):
+class ProfileList(ListPagerView):
     """
     View for serving list of profiles
     """
@@ -205,7 +200,7 @@ class ProfileList(ListView):
     template_name = "registration/profile_list.html"
 
     def get_queryset(self):
-        queryset = reversed(MainUser.objects.all().order_by("uploads_amount"))
+        queryset = super().get_queryset().order_by("-uploads_amount")
         return queryset
 
 class EditProfile(FormView):

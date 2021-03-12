@@ -1,6 +1,6 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
-{% block title %}Главная {% if not page == 1 %}страница: {{ page }}{% endif %} {{total}}{% endblock %}
+{% block title %}Главная{% if not page == 1 %} страница: {{ page }}{% endif %}{% endblock %}
 {% block extra_css %}
     <link href="{% static 'media.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
