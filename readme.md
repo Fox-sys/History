@@ -27,7 +27,8 @@ How to install?
 Superuser account: SU 135790asz
 
 # Patch Note:
-Version: 1.0.0
+Dev Version: 1.1.0
 
-- added production docker files
-- some layout fixes 
+- added some tests
+- added frontend data validation
+- refactored form layout  

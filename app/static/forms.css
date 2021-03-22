@@ -66,6 +66,7 @@ span {
     margin-top: 5px;
     width: 80%;
     margin-left: 10%;
+    display: none;
 }
 
 .uploaded_image {

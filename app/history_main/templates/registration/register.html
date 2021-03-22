@@ -2,6 +2,7 @@
 {% load static %}
 {% block extra_css %}
     <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
+    <script src="{% static 'validation.js' %}"></script>
 {% endblock %}
 {% block title %}
     Регистрация
@@ -13,18 +14,30 @@
             <p class="title">Регистрация</p>
             <form method="post", action="{% url 'register' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label class="form_label">Логин: </label>
-                <input name="username" type="text" class="form_input">
-                <label class="form_label">Имя: </label>
-                <input name="first_name" type="text" class="form_input">
-                <label class="form_label">Фамилия: </label>
-                <input name="last_name" type="text" class="form_input">
-                <label class="form_label">Пароль: </label>
-                <input name="password1" type="text" class="form_input">
-                <label class="form_label">Повтор пароля: </label>
-                <input name="password2" type="text" class="form_input">
-                <label class="form_label">Аватар: </label>
-                <input type="file" name="avatar" accept="image/" id="">
+                <div class="input">
+                    <label class="form_label">Логин: </label>
+                    <input onchange="show_button()" name="username" type="text" class="form_input">
+                </div>
+                <div class="input">
+                    <label class="form_label">Имя: </label>
+                    <input onchange="show_button()" name="first_name" type="text" class="form_input">
+                </div>
+                <div class="input">
+                    <label class="form_label">Фамилия: </label>
+                    <input onchange="show_button()" name="last_name" type="text" class="form_input">
+                </div>
+                <div class="input">
+                    <label class="form_label">Пароль: </label>
+                    <input onchange="show_button()" name="password1" type="password" class="form_input">
+                </div>
+                <div class="input">
+                    <label class="form_label">Повтор пароля: </label>
+                    <input onchange="show_button()" name="password2" type="password" class="form_input">
+                </div>
+                <div class="input">
+                    <label class="form_label">Аватар: </label>
+                    <input onchange="show_button()" class="form_input" type="file" name="avatar" accept="image/" id="">
+                </div>
                 <button class="submit_button" type="submit">Регистрация</button>
                 {% if form.errors %}
                     <span>{{form.errors}}</span>
