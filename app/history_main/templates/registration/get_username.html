@@ -1,6 +1,7 @@
 {% extends 'history_main/base.html' %}
 {% load static %}
 {% block extra_css %}
+    <script src="{% static 'validation.js' %}"></script>
     <link href="{% static 'forms.css' %}" type="text/css" rel="stylesheet">
 {% endblock %}
 {% block title %}
@@ -12,8 +13,10 @@
             <p class="title">Введите имя пользователя (login)</p>
             <form method="post", action="{% url 'change_password' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label class="form_label">Имя пользователя: </label>
-                <input name="username" id="" class="form_input">
+                <div class="input">
+                    <label class="form_label">Имя пользователя: </label>
+                    <input onchange="show_button()" name="username" id="" class="form_input">
+                </div>
                 <button class="submit_button" type="submit">Редактировать</button>
                 {% if form.errors %}
                     <span>Заполните все поля данной формы</span>

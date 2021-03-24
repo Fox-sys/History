@@ -62,7 +62,8 @@ const validatiors = {
     "/solders/create/": solder_validation,
     "/login/": common_validation,
     "/register/": register_validation,
-    "/profiles/edit/": profile_edit_validation
+    "/profiles/edit/": profile_edit_validation,
+    "/changepassword/": common_validation
 }
 
 const show_button = () => {
