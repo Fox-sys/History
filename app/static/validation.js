@@ -29,7 +29,7 @@ const common_validation = (ignore_list=[]) => {
 const password_validation = () => {
     let password1 = document.querySelector('input[name="password1"]');
     let password2 = document.querySelector('input[name="password2"]');
-    return password1.value === password2.value;
+    return password1 === password2 || (password1.value == password2.value && !Number(password1.value) && password1.value.length >= 8);
 }
 
 const hidden_fields_validation = (checkbox, field, elements) => {
@@ -63,7 +63,7 @@ const validatiors = {
     "/login/": common_validation,
     "/register/": register_validation,
     "/profiles/edit/": profile_edit_validation,
-    "/changepassword/": common_validation
+    "/changepassword/": register_validation
 }
 
 const show_button = () => {
