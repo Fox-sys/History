@@ -45,6 +45,7 @@ class SolderPost(models.Model):
     death_date = models.DateField(blank=True, null=True)
     is_alive = models.BooleanField(default=False)
     photo = models.FileField(upload_to="solder_photos/")
+    tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
         return f"{self.id} - {self.last_name} {self.first_name} {self.is_alive}"
@@ -95,3 +96,14 @@ class BadWord(models.Model):
 
     def __unicode__(self):
         return self.word
+
+
+class Tag(models.Model):
+    tag = models.CharField('Тэг', max_length=100)
+
+    def __str__(self):
+        return f'{self.tag}'
+
+    class Meta:
+        verbose_name = "Тэг"
+        verbose_name_plural = "Тэги"

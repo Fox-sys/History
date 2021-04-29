@@ -19,7 +19,10 @@
                     Дата рождения: {{ solder.birth_date.day }}.{{ solder.birth_date.month }}.{{ solder.birth_date.year }} <br>
                     {% if not solder.is_alive %}
                         Дата смерти: {{ solder.death_date.day }}.{{ solder.death_date.month }}.{{ solder.death_date.year }} <br>
-                    {% endif %}
+                    {% endif %}Тэги: 
+                    {% for i in solder.tags.all %}
+                        {{i.tag}}
+                    {% endfor %}
                 </div>
                 <a class="action" href="{% url 'solder_detail' pk=solder.id %}">Подробнее</a>
             </div>
@@ -28,10 +31,10 @@
     {% endfor %}
     {% if total > 1 %}
     <div class="pages">
-        <a href="{% url 'index' %}" class="page_link action">Первая</a>
-        {% if page > 1 %}<a href="{% url 'index' %}?page={{last}}" class="action page_link"><- Предведущая</a>{% endif %}
-        {% if page != total %}<a href="{% url 'index' %}?page={{next}}" class="action page_link">Следущая -></a>{% endif %}
-        <a href="{% url 'index' %}?page={{total}}" class="action page_link">Последняя</a>
+        <a href="{% url 'index' %}?&type={{search_type}}&info={{info}}" class="page_link action">Первая</a>
+        {% if page > 1 %}<a href="{% url 'index' %}?page={{last}}&type={{search_type}}&info={{info}}" class="action page_link"><- Предведущая</a>{% endif %}
+        {% if page != total %}<a href="{% url 'index' %}?page={{next}}&type={{search_type}}&info={{info}}" class="action page_link">Следущая -></a>{% endif %}
+        <a href="{% url 'index' %}?page={{total}}&type={{search_type}}&info={{info}}" class="action page_link">Последняя</a>
     </div>
     {% endif %}
 

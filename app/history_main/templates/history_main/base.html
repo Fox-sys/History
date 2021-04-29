@@ -8,6 +8,7 @@
     <link href="{% static 'header.css' %}" type="text/css" rel="stylesheet">
     <link href="{% static 'main.css' %}" type="text/css" rel="stylesheet">
     <script src="{% static 'ask.js' %}" ></script>
+    <script src="{% static 'search.js' %}" ></script>
     {% block extra_css %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -35,8 +36,15 @@
             </div>
     </header>
     <main>
-        <!-- <div class="lenta-right lenta"><img src="{% static 'lenta.jpg' %}" alt=""></div> -->
         <div class="content">
+            <div class="search_div">
+                <select name="search_type" id="" >
+                    <option value="tags" selected="selected">Тэги</option>
+                    <option value="names">ФИО</option>
+                </select>
+                <input type="text" class="search">
+                <button onclick="search()">Найти</button>
+            </div>
             {% block main %}{% endblock %}
         </div>
     </main>

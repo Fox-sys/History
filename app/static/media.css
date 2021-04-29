@@ -46,18 +46,6 @@ a {
     border: 10px solid #faebd7;
 }
 
-.action {
-    color: #fff;
-    background-color: #883F41;
-    border: 8px solid #883F41;
-    position: relative;
-    top: 20px;
-}
-
-.action:hover{
-    text-decoration: underline;
-}
-
 .pages {
     display: flex;
     justify-content: center;

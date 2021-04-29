@@ -1,5 +1,6 @@
 from django import forms
-from .models import SolderPost, MainUser, BadWord
+from .models import SolderPost, MainUser, BadWord, \
+                    Tag
 from django.contrib.auth.forms import UserCreationForm
 from random import choice
 from string import ascii_letters
@@ -53,7 +54,7 @@ class ChangePasswordForm(forms.Form):
 
     def save(self):
         user = MainUser.objects.get(username=self.cleaned_data["user"])
-        password = self.check_password(user)
+        password = self.check_data(user)
         if password:
             user.set_password(password)
             user.secret_key = ''.join(choice(ascii_letters) for i in range(20))
@@ -62,7 +63,7 @@ class ChangePasswordForm(forms.Form):
         return None
 
 
-    def check_password(self, user):
+    def check_data(self, user):
         if len(self.cleaned_data['password2']) >= 8 and self.cleaned_data['password1'] == self.cleaned_data['password2'] and user.secret_key == self.cleaned_data['secret_key']:
             return self.cleaned_data['password2']
         return None
@@ -73,3 +74,13 @@ class GetUserForm(forms.Form):
 
     def get_username(self):
         return self.cleaned_data["username"]
+
+
+class SearchForm(forms.Form):
+    info = forms.CharField(max_length=100)
+
+    def get_tags(self):
+        return [Tag.objects.get(tag=i) for i in self.cleaned_data['info'].split('-')]
+    
+    def get_names(self):
+        return [i for i in self.cleaned_data['info'].split('-')]

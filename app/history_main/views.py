@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MainUser, SolderPost, Exhibit
 from django.views.generic import ListView, DetailView, View, FormView
-from .forms import SolderForm, SignUpForm, EditProfileForm, ChangePasswordForm, GetUserForm
+from .forms import SolderForm, SignUpForm, EditProfileForm, \
+                   ChangePasswordForm, GetUserForm, SearchForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 from django.core.mail import send_mail
 from django.conf import settings
 import logging
+from itertools import chain
 
 LVLS = ["INFO", "WARNING", "ERROR"]
 
@@ -21,10 +23,41 @@ class ListPagerView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = int(self.request.GET.get('page', '1'))
-        context['total'] = (self.get_queryset().count() // self.paginate_by) + 1 
+        objects_amount = self.get_queryset().count() 
+        context['total'] = (objects_amount // self.paginate_by)
+        if float(objects_amount // self.paginate_by) != (objects_amount / self.paginate_by):
+            context['total'] += 1   
+        context['search_type'] = self.request.GET.get('type', None)
+        context['info'] = self.request.GET.get('info', None) 
         context['next'] = context['page']+1 
-        context['last'] = context['page']-1 
+        context['last'] = context['page']-1
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # print(f"Объектов изначально: {len(queryset)}")   
+        search_type = self.request.GET.get('type', None)
+        search_info = self.request.GET.get('info', None)
+        if search_type == "tags" and search_info:
+            form = SearchForm({'info': search_info})
+            if form.is_valid():
+                try:
+                    tags = form.get_tags()
+                    queryset = queryset.filter(tags__in=set(tags)).distinct('pk')
+                    # print(f"Объектов на вывод: {len(queryset)} \nТэгов:{len(tags)} \nНе повторяющихся статей: {len(set(queryset))}")        
+                except Exception as e: queryset = self.model.objects.none()
+        elif search_type == 'names' and search_info:
+            form = SearchForm({"info": search_info})
+            if form.is_valid():
+                queryset1 = SolderPost.objects.none()
+                queryset2 = SolderPost.objects.none()
+                queryset3 = SolderPost.objects.none()
+                for i in form.get_names():
+                    queryset1 = queryset1 | queryset.filter(first_name=i)
+                    queryset2 = queryset2 | queryset.filter(middle_name=i)
+                    queryset3 = queryset3 | queryset.filter(last_name=i)
+                queryset = (queryset1 | queryset2 | queryset3).distinct('pk')
+        return queryset
 
 
 class SolderList(ListPagerView):
